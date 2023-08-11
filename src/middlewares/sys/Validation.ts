@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { validate } from "class-validator";
 
-export default function ValidationMiddleware<T extends object>(entityClass: new () => T) {
+export default function Validation<T extends object>(entityClass: new () => T) {
     return async (req: Request, res: Response, next: NextFunction) => {
         const requestBody = req.body;
         const entity = new entityClass();

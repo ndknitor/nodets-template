@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
-import ValidationMiddleware from "../middlewares/ValidationMiddleware";
 import SignInRequest from "../requests/SignInRequest";
+import Validation from "../middlewares/sys/Validation";
 
 const userRouter = Router();
 
@@ -13,7 +13,7 @@ userRouter.get('/', async (req: Request, res: Response) => {
     res.json({ users: "xzcxzczx" });
 });
 
-userRouter.post('/submit', ValidationMiddleware(SignInRequest), (req, res) => {
+userRouter.post('/submit', Validation(SignInRequest), (req, res) => {
     // If validation passes, this route handler will be executed
     res.json({ message: 'Request validated successfully' });
 });
