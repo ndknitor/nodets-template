@@ -22,7 +22,6 @@ export default function ResponseCache(req: Request, res: Response, next: NextFun
     next();
 }
 
-export function revalidate(req: Request, body: any) {
-    const cacheKey = req.originalUrl || req.url;
-    cache.set(cacheKey, body);
+export function revalidate(url : string, body: any) {
+    cache.set(url, body);
 }
