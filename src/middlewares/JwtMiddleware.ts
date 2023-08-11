@@ -6,7 +6,7 @@ interface DecodedToken {
   // Add more properties to the DecodedToken interface if needed
 }
 
-export const jwtMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const JwtMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const token = req.header('Authorization');
 
   if (!token) {
