@@ -2,6 +2,9 @@ import { configDotenv } from "dotenv";
 import { server } from "./server";
 configDotenv();
 const port = parseInt(process.env["HOST_PORT"]) || 3000;
+process.on('uncaughtException', function (error) {
+    console.log(error.stack);
+});
 server.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
 });
