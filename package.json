@@ -37,6 +37,6 @@
    "scripts": {
       "start": "nodemon --exec ts-node src/index.ts",
       "typeorm": "typeorm-ts-node-commonjs",
-      "build": "pkg build/index.js"
+      "build": "tsc && pkg build/index.js"
    }
 }

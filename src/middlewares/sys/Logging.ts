@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { createLogger, transports, format } from 'winston';
 import { v4 as uuidv4 } from 'uuid';
 import DailyRotateFile from "winston-daily-rotate-file";
+import { NODE_ENV } from "../../env";
 
 export default function Logging(req: Request, res: Response, next: NextFunction) {
     const requestId = uuidv4();
@@ -34,7 +35,7 @@ export default function Logging(req: Request, res: Response, next: NextFunction)
     }
 }
 
-const logger = createLogger({
+export const logger = createLogger({
     level: 'info',
     format: format.combine(
         format.timestamp(),
@@ -43,15 +44,15 @@ const logger = createLogger({
         })
     ),
     transports: [
-        process.env.NODE_ENV === "production" ?
-        new DailyRotateFile({
-            filename: 'logs/log-%DATE%.log',
-            datePattern: 'YYYY-MM-DD',
-            maxSize: '20m', // Rotate the log file when it reaches 20 MB
-            maxFiles: '14d', // Keep logs for the last 14 days
-        })
-        :
-        new transports.Console(), // Log to the console
+        NODE_ENV === "production" ?
+            new DailyRotateFile({
+                filename: 'logs/log-%DATE%.log',
+                datePattern: 'YYYY-MM-DD',
+                maxSize: '20m', // Rotate the log file when it reaches 20 MB
+                maxFiles: '14d', // Keep logs for the last 14 days
+            })
+            :
+            new transports.Console(), // Log to the console
         // new transports.File({ filename: 'app.log' }) // Log to a file
     ]
 });

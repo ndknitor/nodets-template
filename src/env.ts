@@ -1,0 +1,1 @@
+export const NODE_ENV = (<any>process).pkg ? 'production' : 'development';
