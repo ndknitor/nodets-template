@@ -10,7 +10,7 @@ userRouter.get('/', async (req: Request, res: Response) => {
     //const users = await connection.manager.find(SysTblUser, { where: { userName: ILike("%kn%") } });
     //connection.destroy();
     //res.json({ users: users });
-    res.json({ users: "xzcxzczx" });
+    res.json({ date: new Date() });
 });
 
 userRouter.post('/submit', Validation(SignInRequest), (req, res) => {
