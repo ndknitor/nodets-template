@@ -1,6 +1,5 @@
 import { configDotenv } from "dotenv";
-import { server } from "./server";
-import { logger } from "./middlewares/sys/Logging";
+import server from "./server";
 configDotenv();
 const port = parseInt(process.env["HOST_PORT"]) || 3000;
 server.listen(port, () => {

@@ -32,11 +32,13 @@
       "typeorm": "0.3.17",
       "uuid": "^9.0.0",
       "winston": "^3.10.0",
-      "winston-daily-rotate-file": "^4.7.1"
+      "winston-daily-rotate-file": "^4.7.1",
+      "swagger-autogen": "^2.23.5",
+      "swagger-ui-express": "^5.0.0"
    },
    "scripts": {
       "start": "ts-node src/index.ts",
-      "dev": "nodemon --exec ts-node src/index.ts",
+      "dev": "ts-node swagger-config.ts && nodemon --exec ts-node src/index.ts",
       "typeorm": "typeorm-ts-node-commonjs",
       "build": "tsc && pkg build/index.js"
    }
