@@ -8,6 +8,7 @@ import { HttpStatusCode } from './libs/enums/HttpStatusCode';
 import Logging from './middlewares/sys/Logging';
 
 const server = express();
+server.disable("x-powered-by");
 
 server.use(bodyParser.json());
 server.use(cors());

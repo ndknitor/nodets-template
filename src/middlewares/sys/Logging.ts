@@ -15,7 +15,7 @@ export default function Logging(req: Request, res: Response, next: NextFunction)
 🤖 Method: ${req.method}
 🔍 Query: ${Object.keys(req.query).map(key => `${key}=${req.query[key]}`).join('&')}
 📝 Content-Type: ${req.headers['content-type'] || ""}
-📏 Content-Length: ${req.headers['content-length']}`);
+📏 Content-Length: ${req.headers['content-length'] || ""}`);
     let end = res.end;
     res.end = c => {
         const responseLog = `
