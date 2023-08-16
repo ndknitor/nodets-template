@@ -1,14 +1,8 @@
 import { configDotenv } from "dotenv";
 import { server } from "./server";
 import { logger } from "./middlewares/sys/Logging";
-import { NODE_ENV } from "./env";
 configDotenv();
 const port = parseInt(process.env["HOST_PORT"]) || 3000;
-process.on('uncaughtException', function (error) {
-    logger.error(error.stack);
-});
-console.log(NODE_ENV);
-
 server.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
 });

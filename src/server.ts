@@ -9,9 +9,10 @@ import Logging from './middlewares/sys/Logging';
 const server = express();
 const io = new Server(createServer(server));
 
-server.use(Logging);
 server.use(bodyParser.json());
 server.use(cors());
+
+server.use(Logging);
 
 server.use('/api/users', userRouter);
 

@@ -8,31 +8,32 @@ export default function Logging(req: Request, res: Response, next: NextFunction)
     const requestId = uuidv4();
     const path = req.path;
     logger.info(`
-    [REQUEST ${requestId}]
-    👤 Client IP: ${req.ip}
-    🕵️  User-Agent: ${req.headers['user-agent']}
-    🛣️  Path: ${path}
-    🤖 Method: ${req.method}
-    🔍 Query: ${Object.keys(req.query).map(key => `${key}=${req.query[key]}`).join('&')}
-    💾 Request Body: ${req.body}
-    📝 Content-Type: ${req.headers['content-type']}
-    📏 Content-Length: ${req.headers['content-length']}`);
+[REQUEST ${requestId}]
+👤 Client IP: ${req.ip}
+🕵️  User-Agent: ${req.headers['user-agent']}
+🛣️  Path: ${path}
+🤖 Method: ${req.method}
+🔍 Query: ${Object.keys(req.query).map(key => `${key}=${req.query[key]}`).join('&')}
+📝 Content-Type: ${req.headers['content-type'] || ""}`);
     next();
-    const responseLog = `
-    [RESPONSE ${requestId}]
-    👤 Client IP: ${req.ip}
-    🛣️  Path: ${path}
-    🤖 Method: ${req.method}
-    🔢 Status Code: ${res.statusCode}`;
-    if (res.statusCode < 400) {
-        logger.info(responseLog);
-    }
-    else if (res.statusCode < 500) {
-        logger.warning(responseLog);
-    }
-    else {
-        logger.error(responseLog);
-    }
+    setTimeout(() => {
+        const responseLog = `
+[RESPONSE ${requestId}]
+👤 Client IP: ${req.ip}
+🛣️  Path: ${path}
+🤖 Method: ${req.method}
+🔢 Status Code: ${res.statusCode}
+📝 Content-Type: ${res.getHeader("content-type")}`;
+        if (res.statusCode < 400) {
+            logger.info(responseLog);
+        }
+        else if (res.statusCode < 500) {
+            logger.warning(responseLog);
+        }
+        else {
+            logger.error(responseLog);
+        }
+    }, 100);
 }
 
 export const logger = createLogger({

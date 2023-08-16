@@ -1,3 +1,15 @@
+import { Response } from "express";
+import { HttpStatusCode } from "../enums/HttpStatusCode";
+import { logger } from "../../middlewares/sys/Logging";
+
+export default async function handleRequest(res: Response, handler: () => void | Promise<void>) {
+    try {
+        await handler();
+    } catch (error) {
+        res.status(HttpStatusCode.InternalServerError).json({ message: "Internal Server Error" });
+        logger.error(error);
+    }
+}
 export function formatNumber(num: number | undefined) {
     if (num) {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
