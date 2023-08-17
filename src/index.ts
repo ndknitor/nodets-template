@@ -1,8 +1,8 @@
 import { configDotenv } from "dotenv";
-import server from "./server";
+import app from "./server";
 configDotenv();
 const port = parseInt(process.env["HOST_PORT"]) || 3000;
-server.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
 });
 

@@ -21,20 +21,22 @@
       "typescript": "^4.5.2"
    },
    "dependencies": {
+      "@types/express-ws": "^3.0.1",
       "class-validator": "^0.14.0",
       "dotenv": "^16.3.1",
+      "express-ws": "^5.0.2",
       "jsonwebtoken": "^9.0.1",
       "mssql": "^9.1.1",
       "multer": "^1.4.5-lts.1",
       "node-cache": "^5.1.2",
       "reflect-metadata": "^0.1.13",
       "socket.io": "^4.7.1",
+      "swagger-autogen": "^2.23.5",
+      "swagger-ui-express": "^5.0.0",
       "typeorm": "0.3.17",
       "uuid": "^9.0.0",
       "winston": "^3.10.0",
-      "winston-daily-rotate-file": "^4.7.1",
-      "swagger-autogen": "^2.23.5",
-      "swagger-ui-express": "^5.0.0"
+      "winston-daily-rotate-file": "^4.7.1"
    },
    "scripts": {
       "start": "ts-node src/index.ts",
