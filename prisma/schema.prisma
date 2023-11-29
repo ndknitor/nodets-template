@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model EFMigrationsHistory {
+  MigrationId    String @id(map: "PK___EFMigrationsHistory") @db.NVarChar(150)
+  ProductVersion String @db.NVarChar(32)
+
+  @@map("__EFMigrationsHistory")
+}
+
+model Bus {
+  BusId        Int     @id(map: "PK_Bus")
+  Name         String? @db.NVarChar(128)
+  LicensePlate String  @db.NVarChar(16)
+  Deleted      Boolean
+  Seat         Seat[]
+}
+
+model Product {
+  ProductID               Int       @id(map: "PK__Product__B40CC6ED8480B1AD")
+  ProductName             String?   @db.NVarChar(255)
+  ProductDescription      String?   @db.NVarChar(Max)
+  ProductPrice            Decimal?  @db.Decimal(10, 2)
+  InStock                 Boolean?
+  SKU                     String?   @db.NVarChar(50)
+  Category                String?   @db.NVarChar(100)
+  Brand                   String?   @db.NVarChar(100)
+  ProductWeight           String?   @db.NVarChar(20)
+  CreatedDate             DateTime? @db.Date
+  ProductAvailabilityDate DateTime? @db.Date
+  TaxRate                 Decimal?  @db.Decimal(5, 2)
+}
+
+model Route {
+  RouteId   Int     @id(map: "PK_Route")
+  From      String  @default("", map: "DF__Route__From__3B75D760") @db.NVarChar(128)
+  To        String  @default("", map: "DF__Route__To__3C69FB99") @db.NVarChar(128)
+  BasePrice Int
+  Deleted   Boolean
+}
+
+model Seat {
+  SeatId  Int     @id(map: "PK_Seat")
+  BusId   Int
+  Price   Int
+  Deleted Boolean
+  Name    String  @db.NVarChar(128)
+  Bus     Bus     @relation(fields: [BusId], references: [BusId], onUpdate: NoAction, map: "FK__Seat__BusId__3C69FB99")
+
+  @@index([BusId], map: "IX_Seat_BusId")
+}
+
+model Ticket {
+  TicketId   Int      @id(map: "PK_Ticket")
+  Status     Int
+  Price      Int
+  TripId     Int
+  SeatId     Int
+  BookedDate DateTime @db.DateTime
+  UserId     Int
+  From       String?  @db.NVarChar(128)
+  To         String?  @db.NVarChar(128)
+}
+
+model Trip {
+  TripId    Int      @id(map: "PK_Trip")
+  RouteId   Int
+  StartDate DateTime @db.DateTime
+  EndDate   DateTime @db.DateTime
+  BusId     Int
+}
+
+model User {
+  UserId   Int    @id(map: "PK_User")
+  Email    String @db.NVarChar(128)
+  Fullname String @default("", map: "DF__User__Fullname__4316F928") @db.NVarChar(128)
+  Phone    String @default("", map: "DF__User__Phone__440B1D61") @db.NVarChar(16)
+  Address  String @default("", map: "DF__User__Address__44FF419A") @db.NVarChar(128)
+  RoleId   Int
+}

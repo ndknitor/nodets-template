@@ -14,7 +14,7 @@ app.disable("x-powered-by");
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(Logging);
+// app.use(Logging);
 
 app.use('/api/users', userRouter);
 

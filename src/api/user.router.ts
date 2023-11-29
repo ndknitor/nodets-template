@@ -1,19 +1,16 @@
 import { Request, Response, Router } from "express";
 import SignInRequest from "../requests/SignInRequest";
 import Validation from "../middlewares/sys/Validation";
-import { createDatabaseConnection } from "../data-source";
 import handleRequest from "../libs/functions";
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient();
 
 const userRouter = Router();
 
 userRouter.get('/', async (req: Request, res: Response) => {
     await handleRequest(res, async () => {
-        const connection = await createDatabaseConnection();
-        //const users = await connection.manager.find(SysTblUser, { where: { userName: ILike("%kn%") } });
-        //connection.destroy();
-        //res.json({ users: users });
-        //console.log(connection);
-        res.json({ date: new Date() });
+        const seats = await prisma.seat.findMany({ where: { Deleted: false }, orderBy: { BusId: "desc" } });
+        res.json({seats : seats});
     });
 });
 userRouter.post('/submit', Validation(SignInRequest), (req, res) => {
