@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { HttpStatusCode } from "../enums/HttpStatusCode";
-import { logger } from "../../middlewares/sys/Logging";
+import { logger } from "../middlewares/Logging";
 
 export default async function handleRequest(res: Response, handler: () => void | Promise<void>) {
     try {

@@ -1,11 +1,4 @@
-package-lock.json
+/node_modules
+bun.lockb
 yarn.lock
-.env.local
-bin/
-.idea/
-.vscode/
-node_modules/
-build/
-tmp/
-temp/
-swagger.json
+ormconfig.json
